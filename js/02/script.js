@@ -55,7 +55,7 @@ let green = prompt ("enter number from 16 to 255");
 let g = Number(green).toString(16);
 let blue = prompt ("enter number from 16 to 255");
 let b = Number(blue).toString(16);
-let color = "#" + r + b + g;
+let color = "#" + r + g + b;
 }//Number: RGB
 
 

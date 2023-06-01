@@ -1,3 +1,6 @@
+let numberEexercise = prompt("Введите номер задания");
+
+if (numberEexercise === "1")
 {let number = prompt ("Enter number");
 if (isNaN(number)) {
     alert ("is not number")
@@ -10,8 +13,7 @@ else {
 }
 }//Number: odd
 
-
-
+if (numberEexercise === "2")
 {let text = prompt ("Введите текст");
 text.indexOf("блин");
 if (text.indexOf("блин") >= 0) {
@@ -19,8 +21,7 @@ if (text.indexOf("блин") >= 0) {
 }
 }//String: lexics
 
-
-
+if (numberEexercise === "3")
 {let question = confirm("Is it a rainy day today?") ? "rainy day" : "no rain today";
 let question2 = confirm("Is it a warm day today?") ? "warm day" : "cold day";
 let rainy = question;
@@ -28,8 +29,7 @@ let warm = question2;
 alert(question + ", " + question2);
 }//Boolean
 
-
-
+if (numberEexercise === "4")
 {let question = confirm("Is it a rainy day today?");
 if (question) {
     alert ("rainy day")
@@ -47,8 +47,7 @@ else {
 }
 }//Boolean: if
 
-
-
+if (numberEexercise === "5")
 {let size = prompt ("To convert to US sizes enter your size from 8 to 22");
 if (size === "8") {
     alert ("Your size S")
@@ -76,45 +75,35 @@ if (size === "22") {
 }
 }//Comparison: sizes
 
-
-
+if (numberEexercise === "6")
 {let str = confirm("Ви чоловік?") ? "Ви чоловік" : "Ви жінка";
 alert(str);
 }//Ternary
 
-
-
-{}//Training
-
-
-
+if (numberEexercise === "7")
 {let age = prompt ("Enter age") || alert ("Error");
 let year = (2023 - age);
 alert (year);}//Prompt: or
 
-
-
+if (numberEexercise === "8")
 {let str = confirm("шопінг?") || alert("ти - бяка");
 }//Confirm: or this days
 
-
-
+if (numberEexercise === "9")
 {let str = confirm("шопінг?");
 if (str === false) {
     alert("ти - бяка")
 }
 }//Confirm: if this days
 
-
-
+if (numberEexercise === "10")
 {let surname = prompt ("Enter your surname") || "Иванов";
 let name = prompt ("Enter your name") || "Иван";
 let fathername = prompt ("Enter your fathername") || "Иванович";
 alert("Добрый день, " + surname + " " + name + " " + fathername);
 }//Default: or
 
-
-
+if (numberEexercise === "11")
 {let surname = prompt ("Enter your surname");
 if (surname === null || surname === "") {
     surname = "Иванов"
@@ -130,7 +119,7 @@ if (fathername === null || fathername === "") {
 alert("Добрый день, " + surname + " " + name + " " + fathername);
 }//Default: if
 
-
+if (numberEexercise === "12")
 {let login = prompt("Enter your login");
 if (login !== "admin") {
    alert("Error");
@@ -146,8 +135,7 @@ else {
 }
 }//Login and password
 
-
-
+if (numberEexercise === "13")
 {let answer = prompt("Яку валюту ви би хотіли купити/продати?(usd, eur, pln)").toLowerCase();
 let toBuy = confirm("Ви хочете купити?");
 let sum = prompt("Введіть сумму, яку ви хочете обміняти");
@@ -167,8 +155,7 @@ if (answer === "pln") {
 alert(result);
 }//Currency exchange
 
-
-
+if (numberEexercise === "14")
 {let yourOoption = prompt("Давай пограємо. Обери камінь, ножиці або папір. Потім оберу я").toLowerCase();
 let myOption = Math.random();
 let result
