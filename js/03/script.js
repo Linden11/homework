@@ -80,5 +80,8 @@ alert(str2);
 
 
 
-{
+{let str = prompt("Enter text with Youtube link");
+const reg = /http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/;
+console.log(str.match(reg)[1]);
+document.write(`<iframe width="560" height="315" src="https://www.youtube.com/embed/${str.match(reg)[1]}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`);
 }//youtube

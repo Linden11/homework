@@ -9,37 +9,43 @@ b = c = (b/2);}
 var b, c;
 
 b = (a * 5);  
-b = (c = (b/2));} 
+b = (c = (b/2));
+}//assign: evaluation
 
 
 
 {let age = prompt ("enter age");
 let year = (2023 - age);
-alert (year);}
+alert (year);
+}//Number: age
 
 
 
 {let temC = prompt ("enter temperature in C");
 let temF = temC * 9/5 + 32;
-alert (temF);}
+alert (temF);
+}//Number: temperature
 
 
 {let temf = prompt ("enter temperature in F");
 let temc = (temf - 32) * 5/9;
-alert (temc);}
+alert (temc);
+}//Number: temperature
 
 
 
 {let a = prompt ("enter a");
 let b = Math.floor(a/2);
-alert (b);}
+alert (b);
+}//Number: divide
 
 
 
 {const rate = 0.025;
 let uah = prompt ("enter UAH");
 let eur = (uah * rate).toFixed(2);
-alert (eur);}
+alert (eur);
+}//Number: currency
 
 
 
@@ -49,7 +55,8 @@ let green = prompt ("enter number from 16 to 255");
 let g = Number(green).toString(16);
 let blue = prompt ("enter number from 16 to 255");
 let b = Number(blue).toString(16);
-let color = "#" + r + b + g;}
+let color = "#" + r + b + g;
+}//Number: RGB
 
 
 
@@ -60,4 +67,4 @@ let doorsInEntrance = numberFloor * numberDoorsOnFloor;
 let resultEntrance = Math.ceil(numberDoor / doorsInEntrance);
 let resultApartment = Math.ceil((numberDoor % doorsInEntrance) / numberDoorsOnFloor);
 alert ("number of the entrance: " + resultEntrance + ", number of the floor " + resultApartment);
-}
+}//Number: flats
