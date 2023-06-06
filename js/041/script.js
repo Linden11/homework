@@ -1,4 +1,4 @@
-let numberEexercise = prompt("Введите номер задания");
+let numberEexercise = prompt("Введите номер задания от 1 до 14");
 
 if (numberEexercise === "1")
 {let number = prompt ("Enter number");
@@ -157,20 +157,21 @@ alert(result);
 
 if (numberEexercise === "14")
 {let yourOoption = prompt("Давай пограємо. Обери камінь, ножиці або папір. Потім оберу я").toLowerCase();
-let myOption = Math.random();
+let myOption = Math.random() * 3;
 let result
-if ((myOption * 3) <= 1) {
+if (myOption <= 1) {
     result = "камінь";
     
 }
-if ((myOption * 3) > 1 && (myOption * 3) <= 2) {
+if (myOption > 1 && myOption <= 2) {
     result = "ножиці";
 
 }
-if ((myOption * 3) > 2) {
+if (myOption > 2) {
     result = "папір";
 }
 alert(result);
+
 if (yourOoption === result) {
     alert("нічия")
 }
