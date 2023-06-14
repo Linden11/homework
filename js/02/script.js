@@ -35,8 +35,9 @@ alert (temc);
 
 
 {let a = prompt ("enter a");
-let b = Math.floor(a/2);
-alert (b);
+let b = prompt ("enter b");
+let c = Math.floor(a/b);
+alert (c);
 }//Number: divide
 
 

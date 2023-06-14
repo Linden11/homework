@@ -284,7 +284,7 @@ alert(f.join(" "));
 
 
 
-{let str = prompt ("Enter phrase capital and small letters").split(" ");
+{let str = prompt ("Enter phrase").split(" ");
 let forbidden = ["блин", "оладь", "редиска"];
 const result = str.filter(str => !forbidden.includes(str));
 alert(result.join(" "));

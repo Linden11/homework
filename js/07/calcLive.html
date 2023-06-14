@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="number" id="firstNumber" />
+    <input type="number" id="secondNumber" />
+    <input type="number" id="thirdNumber" />
+    <input type="number" id="forthNumber" />
+    <div id="divisionResult">
+        Enter distance from home to school in first field (km), from home to shop in second field (km), from school to shop in third field (km) and from home to park in forth field (km). And you will know how many km you walk in a month.
+    </div>
+    <script>
+        const calcResult = () => {
+            divisionResult.innerHTML = ( (Number(firstNumber.value) + Number(secondNumber.value) + Number(thirdNumber.value)) + ((Number(firstNumber.value) + Number(forthNumber.value)) * 2) ) * 20;
+            console.log(firstNumber.value, secondNumber.value, thirdNumber, forthNumber, divisionResult.innerHTML);
+        }
+        
+        firstNumber.oninput = secondNumber.oninput = thirdNumber.oninput = forthNumber.oninput = calcResult
+    </script>
+</body>
+</html>

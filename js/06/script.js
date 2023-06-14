@@ -344,20 +344,178 @@
 
 
 
-{ }//Currency real rate
+{ 
+    fetch('https://open.er-api.com/v6/latest/USD').then(res => res.json())
+            .then(data => {
+                const currencyToExchange = prompt('Enter currency for exchange').toUpperCase();
+                const currencyAfterExchange = prompt('What currency do you want to receive?').toUpperCase();
+                const amountToExchange = prompt('Enter amount to exchange');
+                const { rates } = data;
+                const result = rates[currencyToExchange] && rates[currencyAfterExchange]
+                    ? Number(amountToExchange) / rates[currencyToExchange] * rates[currencyAfterExchange]
+                    : "You entered the name of the currency incorrectly";
+                console.log('data', data);
+                alert(result);
+            })
+
+}//Currency real rate
 
 
 
-{ }//Currency drop down
+{ 
+    fetch('https://open.er-api.com/v6/latest/USD').then(res => res.json())
+    .then(data => {
+        const { rates } = data;
+        const currencies = Object.keys(rates);
+
+        let str = "<select>";
+        for (const currency of currencies) {
+            str += `<option>${currency}</option>`;
+        }
+        str += "</select>";
+        document.write(str);
+       
+        console.log('data', data);
+        alert(result);
+    })
+
+}//Currency drop down
 
 
 
-{ }//Currency table
+{ 
+    fetch('https://open.er-api.com/v6/latest/USD').then(res => res.json())
+            .then(data => {
+                const { rates } = data;
+                const currencies = Object.keys(rates);
+
+                let str = '<table style="border-collapse: collapse">';
+
+                str += '<tr><th style="border: 1px solid black; padding: 10px; font-weight: 700; background-color: gray"></>';
+
+                for (const currency of currencies) {
+                    str += `<th style="border: 1px solid black; padding: 10px; background-color: gray">${currency}</th>`;
+                }
+                str += '</tr>';
+
+                for (const curr1 of currencies) {
+                    str += `<tr><td style="border: 1px solid black; padding: 10px; font-weight: 700">${curr1}</td>`;
+                    for (const curr2 of currencies) {
+                        str += `<td style="border: 1px solid black; padding: 10px">${(1 / rates[curr1] * rates[curr2]).toFixed(2)}</td>`
+                    }
+                    str += '</tr>';
+                }
+
+                str += "</table>";
+
+                document.write(str);
+
+            })
+
+}//Currency table
 
 
 
-{ }//Form
+{ 
+    const car = {
+        "Name":"chevrolet chevelle malibu",
+        "Cylinders":8,
+        "Displacement":307,
+        "Horsepower":130,
+        "Weight_in_lbs":3504,
+        "Origin":"USA",
+        "in_production": false
+    }
+
+    const keysNames = Object.keys(car);
+
+    let str = '<form style="width: 350px; height: 280px; border: 1px solid black; padding: 20px">'
+    for (const keyName of keysNames) {
+        str += `<label style="line-height: 40px">${keyName}`;
+
+            str += `<input style="margin-right: 15px; ${typeof car[keyName] !== "boolean" && 'width: 200px;'} border: 1px solid black; padding: 10px; float: right"`;
+            if (typeof car[keyName] === "number") {
+                str += 'type="number" ';
+                str += `value="${car[keyName]}"`;
+            }
+
+            if (typeof car[keyName] === "string") {
+                str += 'type="text" ';
+                str += `value="${car[keyName]}"`;
+            }
+
+            if (typeof car[keyName] === "boolean") {
+                str += 'type="checkbox" ';
+                if (car[keyName] === true) {
+                str += `checked="${car[keyName]}"`;
+                }
+            }
+            str += '>';
+
+        str += '</label><br/>';
+    }
+    str += "</form>";
+    document.write(str);
+
+}//Form
 
 
 
-{ }//Table
+{ 
+    const persons = [
+        {
+            name: 'Марія',
+            fatherName: 'Іванівна',
+            surname: 'Іванова',
+            sex: 'female'
+        },
+        {
+            name: 'Миколай',
+            fatherName: 'Іванович',
+            surname: 'Іванов',
+            age: 15
+        },
+        {
+            name: 'Петро',
+            fatherName: 'Іванович',
+            surname: 'Іванов',
+            married: true
+        },
+    ]
+
+    const keyArr = [];
+    for (const person of persons) {
+        for (const keyName of Object.keys(person)) {
+            if (!keyArr.includes(keyName)) {
+                keyArr.push(keyName);
+            }
+        }
+
+    }
+
+    let str = '<table style="border-collapse: collapse">';
+    str += '<tr>';
+
+    for (const keyName of keyArr) {
+        str += `<th style="border: 1px solid black; padding: 10px; background-color: gray">${keyName}</th>`;
+    }
+    str += '</tr>';
+
+    for (const person of persons) {
+        str += '<tr>';
+        for (const keyName of keyArr) {
+            if (person[keyName] !== undefined) {
+                str += `<td style="border: 1px solid black; padding: 10px">${person[keyName]}</td>`;
+            }
+            else {
+                str += '<td style="border: 1px solid black; padding: 10px"></td>';
+            }
+        }
+        str += '</tr>';
+    }
+
+    str += "</table>";
+
+    document.write(str);
+
+}//Table

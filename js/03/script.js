@@ -72,7 +72,7 @@ console.log(result);
 
 
 
-{let text = prompt("Введіть багаторядковий текст. Для переносу на новий рядок використовуйте \n");
+{let text = prompt("Введіть багаторядковий текст. Для переносу на новий рядок використовуйте \\n");
 let str = text.split('\\n');
 let str2 = str.join('\n');
 alert(str2);
