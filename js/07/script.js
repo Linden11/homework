@@ -169,31 +169,129 @@
 
 
 
-{ }//Currency Table
+{
+    const arr = [];
+    fetch('https://open.er-api.com/v6/latest/USD').then(res => res.json())
+        .then(data => {
+            const { rates } = data;
+            const currencies = Object.keys(rates);
+
+            arr.push(['', ...currencies]);
+
+
+            for (let i = 0; i < currencies.length; i++) {
+                arr[i + 1] = [];
+                arr[i + 1].push(currencies[i]);
+                for (let j = 0; j < currencies.length; j++) {
+                    let element = (1 / rates[currencies[i]] * rates[currencies[j]]).toFixed(2);
+                    arr[i + 1].push(element);
+                }
+            }
+
+            setOfArrays(arr);
+        })
+
+    const setOfArrays = (multiplication) => {
+        let str = '<table style="border-collapse: collapse">';
+        let i = 0;
+
+        for (const multiply of multiplication) {
+            str += '<tr';
+            str += (i % 2 === 0) ? ' style="background-color: gray"' : ' style="background-color: white"';
+            str += '>';
+
+            console.log(multiply);
+            for (const number of multiply) {
+                str += `<td style="border: 1px solid black; padding: 10px">${number}</td>`;
+                console.log(number);
+            }
+            str += '</tr>';
+            i++
+        }
+
+        str += "</table>";
+        return document.write(str);
+    }
+
+}//Currency Table
 
 
 
-{ }//Form
+{
+    const car = {
+        "Name": "chevrolet chevelle malibu",
+        "Cylinders": 8,
+        "Displacement": 307,
+        "Horsepower": 130,
+        "Weight_in_lbs": 3504,
+        "Origin": "USA",
+        "in_production": false
+    }
+
+    const person = {
+        name: 'Миколай',
+        fatherName: 'Іванович',
+        surname: 'Іванов',
+        age: 15,
+        married: true
+    }
+
+    const form = (obj) => {
+        const keysNames = Object.keys(obj);
+
+        let str = '<form style="width: 350px; height: 280px; border: 1px solid black; padding: 20px">'
+        for (const keyName of keysNames) {
+            str += `<label style="line-height: 40px">${keyName}`;
+
+            str += `<input style="margin-right: 15px; ${typeof obj[keyName] !== "boolean" && 'width: 200px;'} border: 1px solid black; padding: 10px; float: right"`;
+            if (typeof obj[keyName] === "number") {
+                str += 'type="number" ';
+                str += `value="${obj[keyName]}"`;
+            }
+
+            if (typeof obj[keyName] === "string") {
+                str += 'type="text" ';
+                str += `value="${obj[keyName]}"`;
+            }
+
+            if (typeof obj[keyName] === "boolean") {
+                str += 'type="checkbox" ';
+                if (obj[keyName] === true) {
+                    str += `checked="${obj[keyName]}"`;
+                }
+            }
+            str += '>';
+
+            str += '</label><br/>';
+        }
+        str += "</form>";
+        document.write(str);
+    }
+
+    form(car);
+    form(person);
+
+}//Form
 
 
 
-{ 
+{
     const sortObj = (arr, prop, asc) => {
-    return arr.sort((a, b) => {
-        if (asc === true || asc === undefined ) {
-            return a[prop] < b[prop] ? -1 : 1;
-        }
-        else {
-            return a[prop] > b[prop] ? -1 : 1;
-        }
-    })
-}
+        return arr.sort((a, b) => {
+            if (asc === true || asc === undefined) {
+                return a[prop] < b[prop] ? -1 : 1;
+            }
+            else {
+                return a[prop] > b[prop] ? -1 : 1;
+            }
+        })
+    }
 
     var persons = [
-        {name: "Олексій", age: 73},
-        {name: "Яків", age: 12},
-        {name: "Марія", age: 35},
-        {name: "Іван", age: 17},
+        { name: "Олексій", age: 73 },
+        { name: "Яків", age: 12 },
+        { name: "Марія", age: 35 },
+        { name: "Іван", age: 17 },
     ]
 
     console.log(sortObj(persons, "age"));
@@ -203,11 +301,135 @@
 
 
 
-{ }//Table
+{
+    const persons = [
+        {
+            name: 'Марія',
+            fatherName: 'Іванівна',
+            surname: 'Іванова',
+            sex: 'female'
+        },
+        {
+            name: 'Андрій',
+            fatherName: 'Іванович',
+            surname: 'Іванов',
+            age: 15
+        },
+        {
+            name: 'Петро',
+            fatherName: 'Іванович',
+            surname: 'Іванов',
+            married: true
+        },
+    ]
+
+        const car = [
+        {
+            "Name": "chevrolet chevelle malibu",
+            "Cylinders": 8,
+            "Displacement": 307,
+            "Horsepower": 130,
+            "Weight_in_lbs": 3504,
+            "Origin": "USA"
+        },
+        {
+            "Name": "buick skylark 320",
+            "Miles_per_Gallon": 15,
+            "Cylinders": 8,
+            "Displacement": 350,
+            "Horsepower": 165,
+            "Weight_in_lbs": 3693,
+            "Acceleration": 11.5,
+            "Year": "1970-01-01",
+        },
+        {
+            "Miles_per_Gallon": 18,
+            "Cylinders": 8,
+            "Displacement": 318,
+            "Horsepower": 150,
+            "Weight_in_lbs": 3436,
+            "Year": "1970-01-01",
+            "Origin": "USA"
+        },
+        {
+            "Name": "amc rebel sst",
+            "Miles_per_Gallon": 16,
+            "Cylinders": 8,
+            "Displacement": 304,
+            "Horsepower": 150,
+            "Year": "1970-01-01",
+            "Origin": "USA"
+        },
+    ]
+
+    const sortObj = (arr, prop, asc) => {
+    
+        arr.sort((a, b) => {
+    if (asc === true || asc === undefined) {
+      if (a[prop] === undefined) return 1;
+      if (b[prop] === undefined) return -1;
+      return a[prop] > b[prop] ? 1 : -1;
+    } else {
+      if (a[prop] === undefined) return -1;
+      if (b[prop] === undefined) return 1;
+      return a[prop] < b[prop] ? 1 : -1;
+    }
+  });
+}
+
+    const renderTable = (original, sortBy, isAsc) => {
+
+        const arr = original.map(or => ({...or}));
+
+        const keyArr = [];
+        for (const obj of arr) {
+            for (const keyName of Object.keys(obj)) {
+                if (!keyArr.includes(keyName)) {
+                    keyArr.push(keyName);
+                }
+            }
+        }
+
+        sortObj(arr, sortBy, isAsc);
+
+        console.log(arr)
+
+        let str = '<table style="border-collapse: collapse">';
+        str += '<tr>';
+
+        for (const keyName of keyArr) {
+            str += `<th style="border: 1px solid black; padding: 10px; background-color: gray">${keyName}</th>`;
+        }
+        str += '</tr>';
+
+        for (const obj of arr) {
+            str += '<tr>';
+            for (const keyName of keyArr) {
+                if (obj[keyName] !== undefined) {
+                    str += `<td style="border: 1px solid black; padding: 10px">${obj[keyName]}</td>`;
+                }
+                else {
+                    str += '<td style="border: 1px solid black; padding: 10px"></td>';
+                }
+            }
+            str += '</tr>';
+        }
+
+        str += "</table>";
+
+        document.write(str);
+    }
+
+    renderTable(car, "Name", false);
+    renderTable(persons, "name", true);
+    renderTable(car, "Weight_in_lbs", true);
+    renderTable(car, "Displacement", true);
+
+}//Table
 
 
 
-{ 
+{
     const wayInMonth = (a, b, c, d) => {
         const wayInMorning = Number(a) + Number(c) + Number(b);
         console.log(wayInMorning);
@@ -216,11 +438,11 @@
         return (wayInMorning + wayInEvening) * 20;
     }
 
-    const fromHomeToSchool = prompt ('Enter distance from home to school in km');
-    const fromHomeToShop = prompt ('Enter distance from home to shop in km');
-    const fromSchoolToShop = prompt ('Enter distance from school to shop in km');
-    const fromHomeToPark = prompt ('Enter distance from home to park in km');
-    
+    const fromHomeToSchool = prompt('Enter distance from home to school in km');
+    const fromHomeToShop = prompt('Enter distance from home to shop in km');
+    const fromSchoolToShop = prompt('Enter distance from school to shop in km');
+    const fromHomeToPark = prompt('Enter distance from home to park in km');
+
     console.log(wayInMonth(fromHomeToSchool, fromHomeToShop, fromSchoolToShop, fromHomeToPark));
 
 }//Calc Func

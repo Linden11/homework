@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <select id="countries"></select>
+
+    <select id="cities"></select>
+
+    <script>
+        fetch('https://raw.githubusercontent.com/russ666/all-countries-and-cities-json/master/countries.min.json').then(res => res.json())
+            .then(data => {
+
+                for (const country in data) {
+                    const option = document.createElement("option");
+                    option.innerHTML = country;
+                    countries.append(option);
+                }
+
+                countries.onchange = () => {
+                cities.innerHTML = '';
+
+                for (const country in data) {
+                    if (country === countries.value){
+                        for (const city of data[country]) {
+                             const option = document.createElement("option");
+                             option.innerHTML = city;
+                             cities.append(option);
+                        }
+                    }
+                }
+
+                }
+            })
+    </script>
+</body>
+
+</html>

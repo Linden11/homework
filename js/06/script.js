@@ -355,6 +355,7 @@
                     ? Number(amountToExchange) / rates[currencyToExchange] * rates[currencyAfterExchange]
                     : "You entered the name of the currency incorrectly";
                 console.log('data', data);
+                console.log("rates", rates);
                 alert(result);
             })
 
@@ -391,7 +392,7 @@
 
                 let str = '<table style="border-collapse: collapse">';
 
-                str += '<tr><th style="border: 1px solid black; padding: 10px; font-weight: 700; background-color: gray"></>';
+                str += '<tr><th style="border: 1px solid black; padding: 10px; font-weight: 700; background-color: gray"></th>';
 
                 for (const currency of currencies) {
                     str += `<th style="border: 1px solid black; padding: 10px; background-color: gray">${currency}</th>`;
