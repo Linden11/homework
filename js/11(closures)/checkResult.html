@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hw11</title>
+</head>
+
+<body>
+    <script>
+
+        function checkResult(original, validator) {
+            function wrapper(...params) {
+                let result = false;
+                let originalResult;
+                while (!result) {
+                    originalResult = original(...params);
+                    result = validator(originalResult);
+                }
+                return originalResult;
+            }
+            return wrapper
+        }
+
+
+        //numberPrompt - це функція, яка буде запускати prompt до тих пір, поки користувач не введе число
+        const numberPrompt = checkResult(prompt, x => !isNaN(+x))
+        let number = +numberPrompt("Введіть число", "0")  //параметри передаються наскрізь до оригіналу. Не забудьте передати це, використовуючи call або apply
+
+        //gamePrompt - це функція, яка буде запускати prompt доти, доки користувач не введе одне зі слів 'камінь', 'ножиці', 'папір'
+        const gamePrompt = checkResult(prompt, x => ['камень', 'ножиці', 'папір'].includes(x.toLowerCase()))
+        const turn = gamePrompt("Введіть щось зі списку: 'камень', 'ножиці', 'папір'")
+
+        const RandomHigh = checkResult(Math.random, x => x >= 0.5 && x <= 1);
+        const random = RandomHigh(Math.random);
+
+        const AlwaysSayYes = checkResult(confirm, x => x === true);
+        const sayYes = AlwaysSayYes("Скажи 'Так'");
+
+        const enterPerson = () => {
+            const person = {};
+            
+            const surname = prompt('Enter your surname');
+            if (surname) person.surname = surname[0].toUpperCase() + surname.slice(1).toLowerCase();
+
+            const name = prompt('Enter your name');
+            if (name) person.name = name[0].toUpperCase() + name.slice(1).toLowerCase();
+
+            const fathername = prompt('Enter your fathername');
+            if (fathername) person.fatherName = fathername[0].toUpperCase() + fathername.slice(1).toLowerCase();
+
+            const fullName = person.surname + ' ' + person.name + ' ' + person.fatherName;
+            if (fullName) person.fullName = fullName;
+
+            return person;
+        }
+        
+        const respectMe = checkResult(enterPerson, (person) => !!person.surname && !!person.name && !!person.fatherName && !!person.fullName);
+        console.log(respectMe());
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <section class="reservation">
+        <div class="banner">
+            <form class="order">
+                <fieldset>
+                    <div class="tc"><label for="name">Trial class</label></div>
+                    <p><input type="text" id="name" placeholder="Enter your name"></p>
+                    <p><input type="tel" placeholder="Enter your phone"></p>
+                    <p><select name="chose">
+                            <option selected>Chose your class</option>
+                            <option value="1">Yoga for health</option>
+                            <option value="2">Yoga for lose weight</option>
+                            <option value="3">Yoga for children</option>
+                            <option value="4">Yoga for elderly</option>
+                        </select></p>
+                    <button id="target">Try it</button>
+                </fieldset>
+            </form>
+
+            <div class="main_text">
+                <h1>Just balance <br> your mind &amp; body</h1>
+                <p>Create the healthy living <br> for yourself</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+
+        function getElementById(idToFind) {
+            function walker(parent = document.body) {
+                for (const child of parent.children) {
+                    if (child.id === idToFind) {
+                        throw child
+                    }
+                    walker(child)
+                }
+            }
+            try {
+                walker();
+            } catch (res) {
+                return res;
+            }
+        }
+
+        console.log(getElementById("target"));
+
+    </script>
+</body>
+
+</html>

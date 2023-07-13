@@ -1,0 +1,55 @@
+.showcase {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+h1 {
+    text-align: center;
+}
+
+.card {
+    margin: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.productImage {
+    width: 250px;
+    height: 250px;
+}
+
+img {
+    width: 100%;
+}
+
+.productDescription {
+    text-align: center;
+
+}
+
+.productSelection {
+    text-align: center;
+}
+
+.saveProduct, .saveNumber, .price {
+    margin: 20px;
+    display: inline-block;
+}
+
+input, select {
+    width: 150px;
+    height: 25px;
+    margin-top: 12px;
+}
+
+button {
+    width: 200px;
+    height: 50px;
+    background-color: #bbe17a;
+    background: linear-gradient(#d8f3ae, #7cb52a);
+    color: #555;
+    border: 1px solid #7cb52a;
+    border-radius: 10px;
+    font-size: 30px;
+}

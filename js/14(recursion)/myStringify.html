@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        const arr = [1, "string", null, undefined, { a: 15, b: 10, c: [1, 2, 3, 4], d: undefined, e: true }, true, false];
+
+        const table = {
+            tagName: 'table',
+            attrs: {
+                border: "1",
+            },
+            children: [
+                {
+                    tagName: 'tr',
+                    children: [
+                        {
+                            tagName: "td",
+                            children: ["1x1"],
+                        },
+                        {
+                            tagName: "td",
+                            children: ["1x2"],
+                        },
+                    ]
+                },
+                {
+                    tagName: 'tr',
+                    children: [
+                        {
+                            tagName: "td",
+                            children: ["2x1"],
+                        },
+                        {
+                            tagName: "td",
+                            children: ["2x2"],
+                        },
+                    ]
+                }
+            ]
+        }
+
+        function stringify(structure) {
+            let str = "";
+            if (Array.isArray(structure)) {
+                str += "[";
+                for (let i=0; i<structure.length; i++) {
+                    str += i === structure.length - 1 ? `${stringify(structure[i])}` : `${stringify(structure[i])},`;
+                }
+                str += "]";
+            } else if (typeof structure === 'object' && structure !== null) {
+                str += "{";
+                Object.keys(structure).forEach((key, i) => {
+                    if (typeof structure[key] !== "undefined") {
+                        str += i === Object.keys(structure).length - 1 ? `"${key}":${stringify(structure[key])}` : `"${key}":${stringify(structure[key])},`;
+                    }
+                });
+                str += "}";
+            } else if (typeof structure === "string") {
+                str += `"${structure}"`;
+            
+            } else if (typeof structure === "undefined") {
+                str += "null";
+            } else {
+                str += structure;
+            }
+
+            return str;
+        }
+
+console.log(stringify(arr));
+console.log(JSON.stringify(arr));
+
+console.log(stringify(arr) === JSON.stringify(arr));
+console.log(stringify(table) === JSON.stringify(table));
+
+const jsonString = stringify(table)
+console.log(JSON.parse(jsonString))
+console.log(table)
+
+    </script>
+</body>
+
+</html>

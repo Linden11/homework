@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button {
+            width: 100px;
+            height: 30px;
+            background-color: aquamarine;
+        }
+
+        button:disabled {
+            background-color: grey;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <script>
+
+        function Password(parent, open) {
+            const fieldPassword = document.createElement('input');
+            parent.append(fieldPassword);
+
+            const checkboxView = document.createElement('input');
+            checkboxView.type = 'checkbox';
+            checkboxView.checked = open;
+            parent.append(checkboxView);
+
+            this.setValue = function (value) {
+                fieldPassword.value = value;
+            }
+
+            this.getValue = function () {
+                return fieldPassword.value;
+            }
+
+            this.setOpen = function (bool) {
+                checkboxView.checked = bool;
+            }
+
+            this.getOpen = function () {
+                return checkboxView.value;
+            }
+
+            this.setStyle = function (name, value) {
+                fieldPassword.style[name] = value;
+            }
+
+            fieldPassword.oninput = (event) => {
+                this.setValue(event.target.value);
+                this.onChange(event.target.value);
+            }
+
+            checkboxView.onchange = (event) => {
+                this.setOpen(event.target.checked);
+                fieldPassword.type = event.target.checked ? 'text' : 'password';
+                this.onOpenChange(event.target.checked);
+            }
+
+            this.onChange = () => {
+            }
+
+            this.onOpenChange = () => {
+            }
+        }
+
+        function LoginForm(parent = document.body) {
+            const formLogin = document.createElement('form');
+            parent.append(formLogin);
+
+            const fieldLogin = document.createElement('input');
+            formLogin.append(fieldLogin);
+
+            const password = new Password(formLogin, true);
+
+            const buttonLogin = document.createElement('button');
+            (!fieldLogin.value || !password.getValue()) && buttonLogin.setAttribute('disabled', 'disabled');
+            formLogin.append(buttonLogin);
+
+            this.setPassword = function (value) {
+                password.setValue(value);
+            }
+
+            this.getPassword = function () {
+                password.getValue();
+            }
+
+            this.setLogin = function (value) {
+                fieldLogin.value = value;
+            }
+
+            this.getLogin = function () {
+                return fieldLogin.value;
+            }
+
+            this.setCheckbox = function (value) {
+                password.setOpen(value);
+            }
+
+            this.getCheckbox = function () {
+                password.getOpen();
+            }
+            
+            password.onChange = (text) => {
+                (!fieldLogin.value || !password.getValue()) ? buttonLogin.setAttribute('disabled', 'disabled') : buttonLogin.removeAttribute('disabled');
+                this.onPasswordChange(text);
+            }
+
+            password.onOpenChange = (open) => {
+                this.onCheckboxChange(open);
+            }
+
+            fieldLogin.oninput = (event) => {
+                (!fieldLogin.value || !password.getValue()) ? buttonLogin.setAttribute('disabled', 'disabled') : buttonLogin.removeAttribute('disabled');
+                this.setLogin(event.target.value);
+                this.onLoginChange(event.target.value);
+            }
+
+            this.onLoginChange = () => {
+            }
+
+            this.onPasswordChange = () => {
+            }
+
+            this.onCheckboxChange = () => {
+            }
+
+        }
+        let l = new LoginForm(document.body)
+
+    </script>
+</body>
+
+</html>

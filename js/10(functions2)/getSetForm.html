@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>getSetForm</title>
+</head>
+
+<body>
+    <script>
+        function createPersonClosure(name, surname) {
+            let age;
+            let fatherName;
+
+            function getName() {
+                return name;
+            }
+
+            function getSurname() {
+                return surname;
+            }
+
+            function getFatherName() {
+                return fatherName;
+            }
+
+            function getAge() {
+                return age;
+            }
+
+            function getFullName() {
+                return `${surname} ${name} ${fatherName}`;
+            }
+
+            function setName(newName) {
+                if (typeof newName === "string" && newName[0].toUpperCase() === newName[0]) {
+                    name = newName;
+                }
+                return name;
+            }
+
+            function setSurname(newSurname) {
+                if (typeof newSurname === "string" && newSurname[0].toUpperCase() === newSurname[0]) {
+                    surname = newSurname;
+                }
+                return surname;
+            }
+
+            function setFatherName(newFatherName) {
+                if (typeof newFatherName === "string" && newFatherName[0].toUpperCase() === newFatherName[0]) {
+                    fatherName = newFatherName;
+                }
+                return fatherName;
+            }
+
+            function setAge(newAge) {
+                const result = Number(newAge);
+                if (typeof result === "number" && !isNaN(result) && result >= 0 && result <= 100) {
+                    age = result;
+                }
+                return age;
+            }
+
+            function setFullName(newFullName) {
+                const arr = newFullName.split(' ');
+                if (arr.length === 3) {
+                    surname = arr[0];
+                    name = arr[1];
+                    fatherName = arr[2];
+                }
+                return getFullName();
+            }
+            return {
+                getName,
+                getSurname,
+                getFatherName,
+                getAge,
+                getFullName,
+                setName,
+                setSurname,
+                setFatherName,
+                setAge,
+                setFullName
+            }
+        }
+
+        let car;
+        {
+            let brand = 'BMW', model = 'X5', volume = 2.4
+            car = {
+                getBrand() {
+                    return brand
+                },
+                setBrand(newBrand) {
+                    if (newBrand && typeof newBrand === 'string') {
+                        brand = newBrand
+                    }
+                    return brand
+                },
+
+                getModel() {
+                    return model
+                },
+                setModel(newModel) {
+                    if (newModel && typeof newModel === 'string') {
+                        model = newModel
+                    }
+                    return model
+                },
+
+                getVolume() {
+                    return volume
+                },
+                setVolume(newVolume) {
+                    newVolume = +newVolume
+                    if (newVolume && newVolume > 0 && newVolume < 20) {
+                        volume = newVolume
+                    }
+                    return volume
+                },
+
+                getTax() {
+                    return volume * 100
+                }
+            }
+        }
+
+        function getSetForm(parent, getSet) {
+            const form = document.createElement('form');
+            form.style.margin = '30px';
+            parent.append(form);
+            const inputs = {}
+
+            const updateInputs = () => {
+                for (const inputKey in inputs) {
+                    const getterName = `get` + inputKey;
+                    if (getSet[getterName]) {
+                        inputs[inputKey].value = getSet[getterName]();
+                    }
+                }
+            }
+
+            for (const getSetName in getSet) {
+                const getOrSet = getSetName.slice(0, 3);
+                const fieldName = getSetName.slice(3);
+                const setKey = `set` + fieldName;
+                const getKey = `get` + fieldName;
+                if (!inputs[fieldName]) {
+                    const input = document.createElement('input');
+                    if (getSet[setKey]) {
+                        const value = getSet[getKey]();
+                        input.type = typeof value === 'number' && !isNaN(value) ? 'number' : 'text';
+                        input.placeholder = fieldName;
+                        input.id = fieldName;
+                        input.oninput = function () {
+                            this.value = getSet[setKey](this.value);
+                            updateInputs();
+                        };
+                    }
+                    else {
+                        input.disabled = true;
+                    }
+                    input.style.width = '300px';
+                    input.style.display = 'block';
+                    form.append(input);
+                    inputs[fieldName] = input;
+                }
+            }
+            updateInputs();
+        }
+
+        getSetForm(document.body, car);
+        const b = createPersonClosure('Анон', "Анонов");
+        b.setAge(55);
+        b.setFatherName('Fjftfyfy5f');
+        getSetForm(document.body, b);
+    </script>
+</body>
+
+</html>

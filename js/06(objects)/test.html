@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        const car = {
+        "Name":"chevrolet chevelle malibu",
+        "Cylinders":8,
+        "Displacement":307,
+        "Horsepower":130,
+        "Weight_in_lbs":3504,
+        "Origin":"USA",
+        "in_production": false
+    }
+
+    const keysNames = Object.keys(car);
+
+    let str = '<form style="width: 350px; height: 280px; border: 1px solid black; padding: 20px">'
+    for (const keyName of keysNames) {
+        str += `<label style="line-height: 40px">${keyName}`;
+
+            str += `<input style="margin-right: 15px; ${typeof car[keyName] !== "boolean" ? 'width: 200px;' : ''} border: 1px solid black; padding: 10px; float: right"`;
+            if (typeof car[keyName] === "number") {
+                str += 'type="number" ';
+                str += `value="${car[keyName]}"`;
+            }
+
+            if (typeof car[keyName] === "string") {
+                str += 'type="text" ';
+                str += `value="${car[keyName]}"`;
+            }
+
+            if (typeof car[keyName] === "boolean") {
+                str += 'type="checkbox" ';
+                if (car[keyName] === true) {
+                str += `checked="${car[keyName]}"`;
+                }
+            }
+            str += '>';
+
+        str += '</label><br/>';
+    }
+    str += "</form>";
+    document.write(str);
+    </script>
+</body>
+</html>

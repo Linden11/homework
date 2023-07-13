@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>personForm</title>
+</head>
+
+<body>
+
+    <div id="app"></div>
+
+    <script>
+        function createPersonClosure(name, surname) {
+            let age;
+            let fatherName;
+
+            function getName() {
+                return name;
+            }
+
+            function getSurname() {
+                return surname;
+            }
+
+            function getFatherName() {
+                return fatherName;
+            }
+
+            function getAge() {
+                return age;
+            }
+
+            function getFullName() {
+                return `${surname} ${name} ${fatherName}`;
+            }
+
+            function setName(newName) {
+                if (typeof newName === "string" && newName[0].toUpperCase() === newName[0]) {
+                    name = newName;
+                }
+                return name;
+            }
+
+
+            function setSurname(newSurname) {
+                if (typeof newSurname === "string" && newSurname[0].toUpperCase() === newSurname[0]) {
+                    surname = newSurname;
+                }
+                return surname;
+            }
+
+            function setFatherName(newFatherName) {
+                if (typeof newFatherName === "string" && newFatherName[0].toUpperCase() === newFatherName[0]) {
+                    fatherName = newFatherName;
+                }
+                return fatherName;
+            }
+
+            function setAge(newAge) {
+                if (typeof newAge === "number" && newAge >= 0 && newAge <= 100) {
+                    age = newAge;
+                }
+                return age;
+            }
+
+            function setFullName(newFullName) {
+                const arr = newFullName.split(' ');
+                if (arr.length === 3) {
+                    surname = arr[0];
+                    name = arr[1];
+                    fatherName = arr[2];
+                }
+                return getFullName();
+            }
+            return {
+                getName,
+                getSurname,
+                getFatherName,
+                getAge,
+                getFullName,
+                setName,
+                setSurname,
+                setFatherName,
+                setAge,
+                setFullName
+            }
+        }
+
+        function personForm(parent, person) {
+
+            const config = [
+                {
+                    id: 'name',
+                    value: person.getName(),
+                    oninput: function () {
+                        this.value = person.setName(this.value);
+                    },
+                },
+                {
+                    id: 'surname',
+                    value: person.getSurname(),
+                    oninput: function () {
+                        this.value = person.setSurname(this.value);
+                    },
+                },
+                {
+                    id: 'fatherName',
+                    value: person.getFatherName(),
+                    oninput: function () {
+                        this.value = person.setFatherName(this.value);
+                    },
+                },
+                {
+                    id: 'age',
+                    value: person.getAge(),
+                    oninput: function () {
+                        this.value = person.setAge(Number(this.value));
+                    },
+                },
+                {
+                    id: 'fullName',
+                    value: person.getFullName(),
+                    oninput: function () {
+                        this.value = person.setFullName(this.value);
+                    },
+                },
+            ];
+
+            const form = document.createElement('form');
+            parent.append(form);
+
+            config.forEach((item) => {
+                const input = document.createElement('input');
+                input.id = item.id;
+                input.value = item.value;
+                input.oninput = item.oninput;
+                input.style.width = '300px';
+                input.style.display = 'block';
+                form.append(input);
+            });
+
+
+        }
+
+        const b = createPersonClosure("Ганна", "Іванова");
+        b.setAge(15);
+        b.setFullName("Петрова Ганна Миколаївна");
+
+        personForm(document.getElementById('app'), b);
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <select id="from"></select>
+
+    <select id="to"></select>
+
+    <div id="rate"></div>
+
+    <input type="number" id="amount" />
+
+    <div id="result"></div>
+
+    <script>
+
+        fetch('https://open.er-api.com/v6/latest/USD').then(res => res.json())
+            .then(data => {
+                const { rates } = data;
+                console.log(rates)
+
+                from.style.margin = '10px';
+                amount.style.margin = '10px';
+
+                for (const currency in rates) {
+                    const option1 = document.createElement("option");
+                    option1.innerHTML = currency;
+                    from.append(option1);
+
+                    const option2 = document.createElement("option");
+                    option2.innerHTML = currency;
+                    to.append(option2);
+                }
+
+                const updateResult = () => {
+                    const sum = (+amount.value / rates[from.value] * rates[to.value]).toFixed(2);
+                    rate.innerHTML = `Exchange rate ${from.value} to ${to.value} ${(1 / rates[from.value] * rates[to.value]).toFixed(2)}`;
+                    result.innerHTML = `You'll get ${sum} ${to.value}`;
+                }
+
+                from.onchange = updateResult;
+                to.onchange = updateResult;
+                amount.oninput = updateResult;
+
+                updateResult();
+
+            })
+
+    </script>
+</body>
+
+</html>

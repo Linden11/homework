@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фрукти</title>
+    <link rel="stylesheet" href="styles/style.css">
+
+</head>
+
+<body>
+    <div id="app">
+
+        <h1 id="title"></h1>
+
+        <form class="productSelection">
+
+            <div class="saveProduct">
+                <label for="productName">Оберіть продукт</label><br>
+                <select id="productName"></select>
+            </div>
+
+            <div class="saveNumber">
+                <label for="chooseNumber">Оберіть кількість у кг</label><br>
+                <input type="number" min="1" id="chooseNumber">
+            </div>
+
+            <div id="payment"></div>
+
+            <div class="price">
+                <label for="generalPrice">Ваша готівка, грн</label><br>
+                <input type="number" min="1" id="generalPrice">
+            </div>
+
+            <button id="btnSubmit" type="submit">Купити</button>
+
+        </form>
+
+
+        <div id="showcase" class="showcase"></div>
+
+
+    </div>
+
+    <script src="scripts/reducer.js"></script>
+    <script src="scripts/store.js"></script>
+    <script src="scripts/scripts.js"></script>
+</body>
+
+</html>
