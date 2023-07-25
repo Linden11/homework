@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        async function swapiLinks(url) {
+            const res = await fetch(url);
+            const data = await res.json();
+
+            const promises = Object.keys(data).map(async (key) => {
+                if (typeof data[key] === 'string' && data[key].includes('https://swapi.dev/api/')) {
+                    const res = await fetch(data[key]);
+                    data[key] = await res.json();
+                } else if (Array.isArray(data[key])) {
+                    const promises2 = data[key].map(async (element) => {
+                        if (typeof element === 'string' && element.includes('https://swapi.dev/api/')) {
+                            const res = await fetch(element);
+                            return await res.json();
+                        }
+                        return element;
+                    });
+                    data[key] = await Promise.all(promises2);
+                }
+                return data[key];
+            });
+
+            await Promise.all(promises);
+            return data;
+        }
+
+        swapiLinks("https://swapi.dev/api/people/20/", true)
+            .then((yodaWithLinks) => console.log(JSON.stringify(yodaWithLinks, null, 4)))
+            .catch((error) => console.error(error));
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            border-collapse: collapse
+        }
+
+        td {
+            padding: 10px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+
+        fetch('https://swapi.dev/api/people/1/')
+            .then(res => res.json())
+            .then(luke => {
+                console.log(luke);
+                heroes(document.body, luke);
+            });
+
+        function heroes(parent, source) {
+            const table = document.createElement('table');
+            parent.append(table);
+
+            for (const key in source) {
+                const tr = document.createElement('tr');
+                table.append(tr);
+
+                const keyTd = document.createElement('td');
+                keyTd.textContent = key;
+                tr.append(keyTd);
+
+                const valueTd = document.createElement('td');
+                tr.append(valueTd);
+
+                if (typeof source[key] === 'string' && source[key].includes('https://swapi.dev/api/')) {
+                    const button = document.createElement('button');
+                    button.innerHTML = source[key];
+                    button.onclick = () => {
+                        fetch(source[key])
+                            .then(res => res.json())
+                            .then(data => {
+                                console.log(data);
+                                heroes(valueTd, data);
+                            });
+                    }
+                    valueTd.append(button);
+                } else if (Array.isArray(source[key])) {
+                    for (const value of source[key]) {
+                        if (typeof value === 'string' && value.includes('https://swapi.dev/api/')) {
+                            const button = document.createElement('button');
+                            button.innerHTML = value;
+                            button.onclick = () => {
+                                fetch(value)
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        console.log(data);
+                                        heroes(valueTd, data);
+                                    });
+                            }
+                            valueTd.append(button);
+                        } else {
+                            const textNode = document.createTextNode(value);
+                            valueTd.append(textNode);
+                        }
+                    }
+                } else {
+                    valueTd.textContent = source[key];
+                }
+
+            }
+        }
+    </script>
+</body>
+
+</html>

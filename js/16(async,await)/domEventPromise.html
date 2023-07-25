@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function domEventPromise(element, eventName) {
+            function executor(resolve) {
+
+                const action = (e) => {
+                    element.removeEventListener(eventName, action);
+                    resolve(e);
+                }
+
+                element.addEventListener(eventName, action);
+
+            }
+            return new Promise(executor);
+        }
+
+        const knopka = document.createElement('button');
+        knopka.style.width = "100px";
+        knopka.style.height = "30px";
+        document.body.append(knopka);
+
+        domEventPromise(knopka, 'click').then(e => console.log('event click happens', e))
+    </script>
+</body>
+
+</html>

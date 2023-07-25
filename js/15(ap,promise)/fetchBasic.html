@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    table {
+      border-collapse: collapse
+    }
+
+    td {
+      padding: 10px;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    fetch('https://swapi.dev/api/people/1/')
+      .then(res => res.json())
+      .then(luke => {
+        console.log(luke);
+        heroes(document.body, luke);
+      });
+
+    function heroes(parent, source) {
+      const table = document.createElement('table');
+      parent.append(table);
+
+      for (const key in source) {
+        const tr = document.createElement('tr');
+        table.append(tr);
+
+        const keyTd = document.createElement('td');
+        keyTd.textContent = key;
+        tr.append(keyTd);
+
+        const valueTd = document.createElement('td');
+        valueTd.textContent = source[key];
+        tr.append(valueTd);
+      }
+    }
+  </script>
+</body>
+
+</html>
